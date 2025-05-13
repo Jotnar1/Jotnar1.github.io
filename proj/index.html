@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Learning Platform</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Изучение английского языка</h1>
+            <nav>
+                <button id="levelTestBtn" class="nav-btn">Определить уровень</button>
+                <button id="practiceBtn" class="nav-btn">Практика vocabulary</button>
+                <button id="flashcardsBtn" class="nav-btn">Карточки слов</button>
+                <button id="grammarBtn" class="nav-btn">Грамматика</button>
+                <button id="sentenceGameBtn" class="nav-btn">Составь предложение</button>
+            </nav>
+        </header>
+
+        <main>
+            <div id="welcome" class="section active">
+                <h2>Добро пожаловать!</h2>
+                <p>Выберите режим работы:</p>
+                <div class="buttons">
+                    <button onclick="startLevelTest()" class="main-btn">Пройти тест на определение уровня</button>
+                    <button onclick="startPractice()" class="main-btn">Начать практику vocabulary</button>
+                    <button onclick="startFlashcards()" class="main-btn">Изучать слова по карточкам</button>
+                    <button onclick="showGrammar()" class="main-btn">Изучить грамматику</button>
+                    <button onclick="startSentenceGame()" class="main-btn">Играть в составление предложений</button>
+                </div>
+            </div>
+
+            <div id="quiz" class="section hidden">
+                <div id="progress">Вопрос <span id="currentQuestion">1</span> из <span id="totalQuestions">25</span></div>
+                <div id="question"></div>
+                <div id="options" class="options"></div>
+                <div id="result" class="hidden"></div>
+                <button id="nextBtn" class="hidden">Следующий вопрос</button>
+            </div>
+
+            <div id="finalResult" class="section hidden">
+                <h2>Результаты</h2>
+                <div id="resultContent"></div>
+                <button onclick="returnToMain()" class="main-btn">Вернуться на главную</button>
+            </div>
+
+            <div id="flashcards" class="section hidden">
+                <div class="flashcard">
+                    <div class="flashcard-inner">
+                        <div class="flashcard-front">
+                            <h3>Слово</h3>
+                            <p id="wordFront"></p>
+                        </div>
+                        <div class="flashcard-back">
+                            <h3>Перевод</h3>
+                            <p id="wordBack"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flashcard-controls">
+                    <button id="prevCard" class="control-btn">←</button>
+                    <button id="flipCard" class="control-btn">Перевернуть</button>
+                    <button id="nextCard" class="control-btn">→</button>
+                </div>
+                <button onclick="returnToMain()" class="main-btn">Вернуться на главную</button>
+            </div>
+
+            <div id="grammar" class="section hidden">
+                <h2>Основы грамматики</h2>
+                <div class="grammar-topics">
+                    <div class="grammar-topic" onclick="showGrammarTopic('present-simple')">
+                        <h3>Present Simple</h3>
+                        <p>Настоящее простое время</p>
+                    </div>
+                    <div class="grammar-topic" onclick="showGrammarTopic('past-simple')">
+                        <h3>Past Simple</h3>
+                        <p>Прошедшее простое время</p>
+                    </div>
+                    <div class="grammar-topic" onclick="showGrammarTopic('future-simple')">
+                        <h3>Future Simple</h3>
+                        <p>Будущее простое время</p>
+                    </div>
+                </div>
+                <div id="grammarContent" class="grammar-content hidden"></div>
+                <button onclick="returnToMain()" class="main-btn">Вернуться на главную</button>
+            </div>
+
+            <div id="sentenceGame" class="section hidden">
+                <h2>Составьте предложение</h2>
+                <div id="targetSentence" class="target-sentence"></div>
+                <div id="wordBank" class="word-bank"></div>
+                <div id="constructedSentence" class="constructed-sentence"></div>
+                <button id="checkSentence" class="main-btn">Проверить</button>
+                <button onclick="returnToMain()" class="main-btn">Вернуться на главную</button>
+            </div>
+        </main>
+    </div>
+    <script src="questions.js"></script>
+    <script src="flashcards.js"></script>
+    <script src="grammar.js"></script>
+    <script src="sentence-game.js"></script>
+    <script src="script.js"></script>
+</body>
+</html> 
