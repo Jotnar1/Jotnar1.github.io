@@ -1,6 +1,111 @@
 // Основной скрипт для анализа пиков героев
 let heroesData;
 
+// Русские названия карт
+const mapNamesRu = {
+    "Alterac Pass": "Альтеракская долина",
+    "Battlefield of Eternity": "Поле Битвы Вечности",
+    "Blackheart's Bay": "Бухта Черносерда",
+    "Braxis Holdout": "Форпост Браксис",
+    "Cursed Hollow": "Проклятая Лощина",
+    "Dragon Shire": "Драконий Погост",
+    "Garden of Terror": "Сад Ужаса",
+    "Hanamura Temple": "Ханамура",
+    "Infernal Shrines": "Адские Святилища",
+    "Sky Temple": "Небесный Храм",
+    "Tomb of the Spider Queen": "Гробница Паучьей Королевы",
+    "Towers of Doom": "Башни Рока",
+    "Volskaya Foundry": "Завод Вольской",
+    "Warhead Junction": "Ракетная Станция"
+};
+
+// Заполнение datalist для героев
+function fillHeroDatalist() {
+    const datalist = document.getElementById('heroesList');
+    if (!datalist) return;
+    datalist.innerHTML = '';
+    heroesData.heroes.forEach(hero => {
+        const option = document.createElement('option');
+        let ru = heroesData.heroNamesRu ? heroesData.heroNamesRu[hero] : '';
+        option.value = hero;
+        if (ru && ru !== hero) option.label = ru;
+        datalist.appendChild(option);
+    });
+}
+
+// Кастомный автокомплит для hero-picker
+function setupAutocomplete() {
+    const allInputs = document.querySelectorAll('.hero-picker');
+    allInputs.forEach(input => {
+        const listId = input.id + '-list';
+        const listDiv = document.getElementById(listId);
+        let currentFocus = -1;
+
+        input.addEventListener('input', function() {
+            const val = this.value.toLowerCase();
+            listDiv.innerHTML = '';
+            let matches = [];
+            heroesData.heroes.forEach(hero => {
+                const ru = heroesData.heroNamesRu ? heroesData.heroNamesRu[hero] : '';
+                if (
+                    hero.toLowerCase().includes(val) ||
+                    (ru && ru.toLowerCase().includes(val))
+                ) {
+                    matches.push({eng: hero, ru: ru});
+                }
+            });
+            if (matches.length === 0) {
+                listDiv.innerHTML = '<div class="autocomplete-item">Нет совпадений</div>';
+            } else {
+                matches.forEach((h, idx) => {
+                    const item = document.createElement('div');
+                    item.className = 'autocomplete-item';
+                    item.innerHTML = `<b>${h.ru || h.eng}</b> <span style='color:#aaa;font-size:0.9em;'>${h.eng}</span>`;
+                    item.addEventListener('mousedown', function(e) {
+                        input.value = h.eng;
+                        listDiv.classList.remove('show');
+                        input.blur();
+                    });
+                    listDiv.appendChild(item);
+                });
+            }
+            listDiv.classList.add('show');
+            currentFocus = -1;
+        });
+
+        input.addEventListener('focus', function() {
+            this.dispatchEvent(new Event('input'));
+        });
+        input.addEventListener('blur', function() {
+            setTimeout(() => listDiv.classList.remove('show'), 150);
+        });
+        input.addEventListener('keydown', function(e) {
+            let items = listDiv.querySelectorAll('.autocomplete-item');
+            if (!items.length) return;
+            if (e.key === 'ArrowDown') {
+                currentFocus++;
+                if (currentFocus >= items.length) currentFocus = 0;
+                setActive(items, currentFocus);
+                e.preventDefault();
+            } else if (e.key === 'ArrowUp') {
+                currentFocus--;
+                if (currentFocus < 0) currentFocus = items.length - 1;
+                setActive(items, currentFocus);
+                e.preventDefault();
+            } else if (e.key === 'Enter') {
+                if (currentFocus > -1) {
+                    items[currentFocus].dispatchEvent(new Event('mousedown'));
+                    e.preventDefault();
+                }
+            }
+        });
+        function setActive(items, idx) {
+            items.forEach(i => i.classList.remove('selected'));
+            if (items[idx]) items[idx].classList.add('selected');
+        }
+    });
+}
+
 // Инициализация при загрузке страницы
 document.addEventListener('DOMContentLoaded', function() {
     // Проверяем, загружены ли данные из database.js
@@ -33,12 +138,16 @@ document.addEventListener('DOMContentLoaded', function() {
             },
             synergies: {},
             counteredBy: {},
-            bestMaps: {}
+            bestMaps: {},
+            metaTiers: {} // Добавляем поле для мета-уровней
         };
     }
     
     initializeSelects();
     initializeSearch();
+    fillHeroDatalist();
+    setupAutocomplete();
+    fillHeroAndMapSelects();
 });
 
 // Инициализация выпадающих списков
@@ -71,39 +180,100 @@ function initializeSearch() {
         input.addEventListener('input', function() {
             const searchTerm = this.value.toLowerCase();
             const targetSelect = this.getAttribute('data-target');
-            filterSelectOptions(targetSelect, searchTerm);
+            filterSelectOptions(targetSelect, searchTerm, this);
         });
-        
         // Очистка поиска при фокусе
         input.addEventListener('focus', function() {
             this.select();
         });
     });
+    // Сброс поиска при выборе героя
+    const selects = document.querySelectorAll('.pick-field select');
+    selects.forEach(select => {
+        select.addEventListener('change', function() {
+            const input = select.parentElement.querySelector('.search-input');
+            if (input) {
+                input.value = '';
+                filterSelectOptions(select.id, '', input);
+            }
+        });
+    });
 }
 
 // Фильтрация опций в селекте
-function filterSelectOptions(selectId, searchTerm) {
+function filterSelectOptions(selectId, searchTerm, inputEl) {
     const select = document.getElementById(selectId);
     if (!select) return;
-    
+    let found = false;
     const options = select.querySelectorAll('option');
     options.forEach(option => {
         if (option.value === '') return; // Пропускаем пустую опцию
-        
-        const heroName = option.textContent.toLowerCase();
-        if (searchTerm === '' || heroName.includes(searchTerm)) {
+        const engName = option.value.toLowerCase();
+        let ruName = '';
+        if (window.heroesData && window.heroesData.heroNamesRu) {
+            ruName = (window.heroesData.heroNamesRu[option.value] || '').toLowerCase();
+        }
+        // Поиск по английскому и русскому
+        if (
+            searchTerm === '' ||
+            engName.includes(searchTerm) ||
+            (ruName && ruName.includes(searchTerm))
+        ) {
             option.style.display = '';
+            found = true;
         } else {
             option.style.display = 'none';
         }
     });
+    // Если не найдено совпадений, показываем сообщение
+    let noMatchId = selectId + '_no_match';
+    let noMatchOption = select.querySelector('#' + noMatchId);
+    if (!found && searchTerm.length > 0) {
+        if (!noMatchOption) {
+            noMatchOption = document.createElement('option');
+            noMatchOption.id = noMatchId;
+            noMatchOption.disabled = true;
+            noMatchOption.selected = true;
+            noMatchOption.textContent = 'Нет совпадений';
+            select.appendChild(noMatchOption);
+        }
+    } else if (noMatchOption) {
+        select.removeChild(noMatchOption);
+    }
+}
+
+// Заполнение select'ов героев и карт
+function fillHeroAndMapSelects() {
+    // Герои
+    const heroSelects = document.querySelectorAll('.hero-select');
+    heroSelects.forEach(select => {
+        select.innerHTML = '<option value="">Выберите героя</option>';
+        heroesData.heroes.forEach(hero => {
+            const ru = heroesData.heroNamesRu ? heroesData.heroNamesRu[hero] : '';
+            const option = document.createElement('option');
+            option.value = hero;
+            option.textContent = ru && ru !== hero ? `${ru} (${hero})` : hero;
+            select.appendChild(option);
+        });
+    });
+    // Карты
+    const mapSelect = document.getElementById('mapSelect');
+    if (mapSelect) {
+        mapSelect.innerHTML = '<option value="">Выберите карту</option>';
+        heroesData.maps.forEach(map => {
+            const option = document.createElement('option');
+            option.value = map;
+            option.textContent = mapNamesRu[map] || map;
+            mapSelect.appendChild(option);
+        });
+    }
 }
 
 // Основная функция анализа пиков
 function analyzePicks() {
     const allies = getSelectedHeroes('ally');
     const enemies = getSelectedHeroes('enemy');
-    const map = document.getElementById('mapSelect').value;
+    const map = getSelectedMap();
 
     if (allies.length === 0 && enemies.length === 0 && !map) {
         showError('Пожалуйста, выберите хотя бы одного героя или карту');
@@ -130,6 +300,11 @@ function getSelectedHeroes(prefix) {
     }
     return heroes;
 }
+// Получение выбранной карты
+function getSelectedMap() {
+    const mapSelect = document.getElementById('mapSelect');
+    return mapSelect && mapSelect.value ? mapSelect.value : '';
+}
 
 // Расчет рекомендаций
 function calculateRecommendations(allies, enemies, map) {
@@ -144,7 +319,7 @@ function calculateRecommendations(allies, enemies, map) {
         allies.forEach(ally => {
             if (heroesData.synergies[ally] && heroesData.synergies[ally].includes(hero)) {
                 score += 10;
-                reasons.push(`Синергия с ${ally}`);
+                reasons.push(`Синергия с ${ally} (+10)`);
             }
         });
 
@@ -152,14 +327,31 @@ function calculateRecommendations(allies, enemies, map) {
         enemies.forEach(enemy => {
             if (heroesData.counteredBy[enemy] && heroesData.counteredBy[enemy].includes(hero)) {
                 score += 15;
-                reasons.push(`Контрит ${enemy}`);
+                reasons.push(`Контрит ${enemy} (+15)`);
             }
         });
 
         // Проверяем лучшие карты
         if (map && heroesData.bestMaps[hero] && heroesData.bestMaps[hero].includes(map)) {
             score += 8;
-            reasons.push(`Отлично подходит для карты ${map}`);
+            reasons.push(`Отлично подходит для карты ${map} (+8)`);
+        }
+
+        // Бонус за мету
+        if (heroesData.metaTiers) {
+            if (heroesData.metaTiers.S && heroesData.metaTiers.S.includes(hero)) {
+                score += 10;
+                reasons.push('Tier S мета (+10)');
+            } else if (heroesData.metaTiers.A && heroesData.metaTiers.A.includes(hero)) {
+                score += 5;
+                reasons.push('Tier A мета (+5)');
+            } else if (heroesData.metaTiers.B && heroesData.metaTiers.B.includes(hero)) {
+                score += 3;
+                reasons.push('Tier B мета (+3)');
+            } else if (heroesData.metaTiers.C && heroesData.metaTiers.C.includes(hero)) {
+                score += 1;
+                reasons.push('Tier C мета (+1)');
+            }
         }
 
         // Дополнительные бонусы
@@ -169,7 +361,7 @@ function calculateRecommendations(allies, enemies, map) {
             ).length;
             if (synergyCount >= 2) {
                 score += 5;
-                reasons.push(`Множественные синергии (${synergyCount})`);
+                reasons.push(`Множественные синергии (${synergyCount}) (+5)`);
             }
         }
 
@@ -179,7 +371,7 @@ function calculateRecommendations(allies, enemies, map) {
             ).length;
             if (counterCount >= 2) {
                 score += 8;
-                reasons.push(`Множественные контры (${counterCount})`);
+                reasons.push(`Множественные контры (${counterCount}) (+8)`);
             }
         }
 
@@ -249,62 +441,48 @@ function showResults(recommendations) {
 
 // Показать категории героев
 function showCategories(recommendations) {
-    const categories = ['tanks', 'healers', 'damage', 'specialists'];
+    const categories = ['tanks', 'bruisers', 'healers', 'damage', 'specialists'];
     const categoryNames = {
         tanks: 'Танки',
+        bruisers: 'Брузеры',
         healers: 'Хилеры', 
         damage: 'ДД',
         specialists: 'Специалисты'
     };
-    
+    // Определяем текущую тему
+    const theme = document.body.classList.contains('dark-theme') ? 'dark-theme' : 'light-theme';
     categories.forEach(category => {
         const categoryList = document.getElementById(category + 'List');
         if (!categoryList) return;
-        
         const categoryHeroes = heroesData.heroCategories[category] || [];
-        const recommendedHeroes = recommendations
-            .filter(([hero]) => categoryHeroes.includes(hero))
-            .slice(0, 5); // Показываем до 5 героев в каждой категории
-        
+        let recommendedHeroes = recommendations
+            .filter(([hero, data]) => categoryHeroes.includes(hero) && data.score > 0);
+        recommendedHeroes = recommendedHeroes.slice(0, 5);
         let html = '';
         if (recommendedHeroes.length > 0) {
             recommendedHeroes.forEach(([hero, data], index) => {
                 const rankColor = index === 0 ? '#ffd700' : index === 1 ? '#c0c0c0' : index === 2 ? '#cd7f32' : '#4a90e2';
+                const ru = heroesData.heroNamesRu ? heroesData.heroNamesRu[hero] : '';
+                const heroDisplay = ru && ru !== hero ? `${ru} (${hero})` : hero;
+                const scoreColor = theme === 'dark-theme' ? '#58a6ff' : '#238636';
                 html += `
-                    <div class="hero-card" style="margin-bottom: 10px;">
-                        <div class="hero-name" style="font-size: 1.1em;">
+                    <div class="hero-card ${theme}">
+                        <div class="hero-name ${theme}" style="font-size: 1.1em;">
                             <i class="fas fa-crown" style="color: ${rankColor}"></i>
-                            ${hero}
+                            ${heroDisplay}
                         </div>
-                        <div class="hero-score" style="font-size: 0.9em;">
+                        <div class="hero-score ${theme}" style="font-size: 0.9em; color: ${scoreColor};">
                             Очки: ${data.score}
                         </div>
-                        <div class="hero-reasons" style="font-size: 0.8em; color: #7f8c8d; margin-top: 5px;">
-                            ${data.reasons.slice(0, 2).join(', ')}
+                        <div class="hero-reasons" style="font-size: 0.85em; color: #7f8c8d; margin-top: 5px;">
+                            ${data.reasons && data.reasons.length > 0 ? `<strong>Пояснения:</strong><br><ul style='margin: 0 0 0 18px; padding: 0;'>${data.reasons.map(r => `<li>${r}</li>`).join('')}</ul>` : ''}
                         </div>
                     </div>
                 `;
             });
         } else {
-            // Если нет рекомендаций в категории, показываем топ-5 героев из этой категории
-            const topCategoryHeroes = categoryHeroes.slice(0, 5);
-            html = '<p style="color: #7f8c8d; font-style: italic; margin-bottom: 10px;">Топ героев в категории:</p>';
-            topCategoryHeroes.forEach((hero, index) => {
-                const rankColor = index === 0 ? '#ffd700' : index === 1 ? '#c0c0c0' : index === 2 ? '#cd7f32' : '#4a90e2';
-                html += `
-                    <div class="hero-card" style="margin-bottom: 10px; opacity: 0.7;">
-                        <div class="hero-name" style="font-size: 1.1em;">
-                            <i class="fas fa-star" style="color: ${rankColor}"></i>
-                            ${hero}
-                        </div>
-                        <div class="hero-score" style="font-size: 0.9em;">
-                            Базовый герой
-                        </div>
-                    </div>
-                `;
-            });
+            html = '<p style="color: #7f8c8d; font-style: italic; margin-bottom: 10px;">Нет подходящих героев</p>';
         }
-        
         categoryList.innerHTML = html;
     });
 }
@@ -331,4 +509,50 @@ function showError(message) {
         }
     });
 }
+ 
+// Автоматическое применение классов темы к основным элементам
+function applyThemeClasses(theme) {
+    const container = document.querySelector('.container');
+    const header = document.querySelector('.header');
+    const mainContent = document.querySelector('.main-content');
+    const selects = document.querySelectorAll('select');
+    const inputs = document.querySelectorAll('.search-input');
+    const buttons = document.querySelectorAll('button');
+    const categorySections = document.querySelectorAll('.category-section');
+    const heroCards = document.querySelectorAll('.hero-card');
+    if (container) { container.classList.remove('light-theme', 'dark-theme'); container.classList.add(theme+'-theme'); }
+    if (header) { header.classList.remove('light-theme', 'dark-theme'); header.classList.add(theme+'-theme'); }
+    if (mainContent) { mainContent.classList.remove('light-theme', 'dark-theme'); mainContent.classList.add(theme+'-theme'); }
+    selects.forEach(s => { s.classList.remove('light-theme', 'dark-theme'); s.classList.add(theme+'-theme'); });
+    inputs.forEach(i => { i.classList.remove('light-theme', 'dark-theme'); i.classList.add(theme+'-theme'); });
+    buttons.forEach(b => { b.classList.remove('light-theme', 'dark-theme'); b.classList.add(theme+'-theme'); });
+    categorySections.forEach(cs => { cs.classList.remove('light-theme', 'dark-theme'); cs.classList.add(theme+'-theme'); });
+    heroCards.forEach(hc => { hc.classList.remove('light-theme', 'dark-theme'); hc.classList.add(theme+'-theme'); });
+}
+
+// Исправленный setTheme и применение темы
+window.setTheme = function(theme) {
+    document.body.classList.remove('light-theme', 'dark-theme');
+    document.body.classList.add(theme+'-theme');
+    localStorage.setItem('theme', theme);
+    // Кнопка
+    const btn = document.getElementById('theme-toggle');
+    if (btn) {
+        btn.innerHTML = theme === 'dark' ? '<i class="fas fa-sun"></i> <span id="theme-toggle-text">Светлая тема</span>' : '<i class="fas fa-moon"></i> <span id="theme-toggle-text">Тёмная тема</span>';
+    }
+    // Применить классы
+    if (typeof applyThemeClasses === 'function') applyThemeClasses(theme);
+};
+
+window.addEventListener('DOMContentLoaded', function() {
+    let theme = localStorage.getItem('theme') || 'light';
+    setTheme(theme);
+    const btn = document.getElementById('theme-toggle');
+    if (btn) {
+        btn.onclick = function() {
+            theme = (theme === 'dark') ? 'light' : 'dark';
+            setTheme(theme);
+        };
+    }
+});
  

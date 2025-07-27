@@ -3,14 +3,10 @@ window.heroesData = {
     // Список всех героев
     heroes: [
         "Abathur", "Anub'arak", "Arthas", "Blaze", "Cho", "Diablo", "E.T.C.", "Garrosh", "Johanna", "Mal'Ganis",
-        "Medivh", "Muradin", "Stitches", "Tyrael", "Artanis", "Chen", "D.Va", "Dehaka", "Imperius", "Leoric",
-        "Malthael", "Ragnaros", "Rexxar", "Sonya", "Thrall", "The Lost Vikings", "Varian", "Xul", "Yrel", "Zarya",
-        "Azmodan", "Gazlowe", "Hogger", "Mei", "Cassia", "Chromie", "Falstad", "Fenix", "Gall", "Genji",
-        "Greymane", "Gul'dan", "Hanzo", "Jaina", "Junkrat", "Kael'thas", "Kel'Thuzad", "Li-Ming", "Lunara", "Mephisto",
-        "Nazeebo", "Nova", "Orphea", "Probius", "Raynor", "Sgt. Hammer", "Sylvanas", "Tassadar", "Tracer", "Tychus",
-        "Valla", "Zagara", "Zul'jin", "Alarak", "Illidan", "Kerrigan", "Maiev", "Murky", "Qhira", "Samuro",
-        "The Butcher", "Valeera", "Zeratul", "Alexstrasza", "Ana", "Anduin", "Auriel", "Brightwing", "Deckard Cain",
-        "Kharazim", "Li Li", "Lt. Morales", "Lúcio", "Malfurion", "Rehgar", "Stukov", "Tyrande", "Uther", "Whitemane"
+        "Muradin", "Stitches", "Tyrael", "Artanis", "Chen", "D.Va", "Dehaka", "Imperius", "Leoric", "Malthael", "Ragnaros", "Rexxar", "Sonya", "Thrall", "Varian", "Yrel",
+        "Alexstrasza", "Ana", "Anduin", "Auriel", "Brightwing", "Deckard Cain", "Kharazim", "Li Li", "Lt. Morales", "Lúcio", "Malfurion", "Rehgar", "Stukov", "Tyrande", "Uther", "Whitemane",
+        "Cassia", "Chromie", "Falstad", "Fenix", "Gall", "Genji", "Greymane", "Gul'dan", "Hanzo", "Illidan", "Jaina", "Junkrat", "Kael'thas", "Kel'Thuzad", "Kerrigan", "Li-Ming", "Lunara", "Maiev", "Mephisto", "Nova", "Orphea", "Raynor", "Sgt. Hammer", "Sylvanas", "Tassadar", "Tracer", "Tychus", "Valla", "Zul'jin", "Qhira", "Valeera", "The Butcher", "Samuro", "Zeratul",
+        "Abathur", "Azmodan", "Gazlowe", "Hogger", "Mei", "Murky", "Nazeebo", "Probius", "The Lost Vikings", "Zagara", "Xul"
     ],
 
     // Список всех карт
@@ -23,23 +19,28 @@ window.heroesData = {
     // Категории героев
     heroCategories: {
         tanks: [
-            "Anub'arak", "Arthas", "Blaze", "Cho", "Diablo", "E.T.C.", "Garrosh", "Johanna", "Mal'Ganis",
-            "Muradin", "Stitches", "Tyrael", "Artanis", "Chen", "D.Va", "Dehaka", "Imperius", "Leoric",
-            "Malthael", "Ragnaros", "Rexxar", "Sonya", "Thrall", "Varian", "Yrel", "Zarya"
+            "Anub'arak", "Arthas", "Blaze", "Cho", "Diablo", "E.T.C.", "Garrosh", "Johanna",
+            "Mal'Ganis", "Muradin", "Stitches", "Tyrael", "Mei"
+        ],
+        bruisers: [
+            "Artanis", "Chen", "D.Va", "Dehaka", "Hogger", "Imperius", "Leoric", "Malthael",
+            "Ragnaros", "Rexxar", "Sonya", "Thrall", "Varian", "Yrel"
         ],
         healers: [
-            "Alexstrasza", "Ana", "Anduin", "Auriel", "Brightwing", "Deckard Cain", "Kharazim", "Li Li",
-            "Lt. Morales", "Lúcio", "Malfurion", "Rehgar", "Stukov", "Tyrande", "Uther", "Whitemane"
+            "Alexstrasza", "Ana", "Anduin", "Auriel", "Brightwing", "Deckard Cain", "Kharazim",
+            "Li Li", "Lt. Morales", "Lúcio", "Malfurion", "Rehgar", "Stukov", "Tyrande",
+            "Uther", "Whitemane"
         ],
         damage: [
-            "Abathur", "Alarak", "Azmodan", "Cassia", "Chromie", "Falstad", "Fenix", "Gall", "Genji",
-            "Greymane", "Gul'dan", "Hanzo", "Illidan", "Jaina", "Junkrat", "Kael'thas", "Kel'Thuzad",
+            "Alarak", "Cassia", "Chromie", "Falstad", "Fenix", "Gall", "Genji", "Greymane",
+            "Gul'dan", "Hanzo", "Illidan", "Jaina", "Junkrat", "Kael'thas", "Kel'Thuzad",
             "Kerrigan", "Li-Ming", "Lunara", "Maiev", "Mephisto", "Nova", "Orphea", "Raynor",
-            "Sgt. Hammer", "Sylvanas", "Tassadar", "Tracer", "Tychus", "Valla", "Zul'jin"
+            "Sgt. Hammer", "Sylvanas", "Tassadar", "Tracer", "Tychus", "Valla", "Zul'jin",
+            "Qhira", "Valeera", "The Butcher", "Samuro", "Zeratul", "Gazlowe", "Nazeebo",
+            "Zagara", "Xul"
         ],
         specialists: [
-            "Gazlowe", "Hogger", "Mei", "Murky", "Nazeebo", "Probius", "Qhira", "Samuro",
-            "The Butcher", "The Lost Vikings", "Valeera", "Zagara", "Zeratul", "Xul"
+            "Abathur", "Zarya", "The Lost Vikings", "Medivh", "Murky", "Probius"
         ]
     },
 
@@ -201,21 +202,21 @@ window.heroesData = {
         "Valla": ["Greymane", "Illidan", "Nova", "The Butcher", "Valeera", "Zeratul"],
         "Zagara": ["Illidan", "Falstad", "Chen", "Zeratul"],
         "Zul'jin": ["E.T.C.", "Dehaka", "Diablo", "Garrosh", "Uther", "Li Li"],
-        "Alarak": ["E.T.C.", "Johanna", "Deathwing", "Medivh"],
-        "Illidan": ["Arthas", "Brightwing", "E.T.C.", "Li Li", "Johanna", "Muradin", "Sonya", "Uther", "Varian"],
-        "Kerrigan": ["Tyrael", "E.T.C.", "Garrosh", "Uther", "Medivh", "Auriel", "Lúcio"],
+        "Alarak": ["Battlefield of Eternity", "Towers of Doom"],
+        "Illidan": ["Blackheart's Bay", "Cursed Hollow", "Garden of Terror", "Sky Temple", "Warhead Junction"],
+        "Kerrigan": ["Alterac Pass", "Braxis Holdout", "Dragon Shire", "Infernal Shrines", "Tomb of the Spider Queen", "Volskaya Foundry"],
         "Maiev": ["Arthas", "Tyrael", "E.T.C.", "Johanna", "Lunara", "Tracer", "Lúcio", "Brightwing"],
         "Murky": ["Sonya", "Falstad"],
         "Qhira": ["Lúcio", "Uther", "E.T.C.", "Diablo", "Garrosh", "Tracer"],
         "Samuro": ["Lúcio", "E.T.C.", "Jaina", "Orphea", "Cassia", "Medivh", "Diablo", "Stukov"],
         "The Butcher": ["Johanna", "E.T.C.", "Brightwing", "Uther"],
-        "Valeera": ["E.T.C.", "Arthas", "Medivh", "Lúcio"],
-        "Zeratul": ["Brightwing", "Uther", "Varian", "Diablo", "E.T.C.", "Medivh"],
+        "Valeera": ["Blackheart's Bay", "Cursed Hollow", "Dragon Shire", "Sky Temple", "Warhead Junction"],
+        "Zeratul": ["Cursed Hollow", "Infernal Shrines", "Sky Temple", "Towers of Doom"],
         "Alexstrasza": ["Johanna", "Kael'thas", "Blaze", "Azmodan"],
-        "Ana": ["Lúcio", "Zeratul", "Hanzo", "Anub'arak"],
-        "Anduin": ["Varian", "Sonya", "Lunara", "Kel'Thuzad", "Stukov"],
-        "Auriel": ["Anub'arak", "Chen", "Junkrat", "Chromie", "Deckard Cain"],
-        "Brightwing": ["Anub'arak", "Johanna", "E.T.C."],
+        "Ana": ["Hanamura Temple", "Tomb of the Spider Queen", "Towers of Doom"],
+        "Anduin": ["Battlefield of Eternity", "Cursed Hollow", "Infernal Shrines", "Tomb of the Spider Queen"],
+        "Auriel": ["Battlefield of Eternity", "Braxis Holdout", "Hanamura Temple"],
+        "Brightwing": ["Alterac Pass", "Cursed Hollow", "Sky Temple", "Towers of Doom", "Warhead Junction"],
         "Deckard Cain": ["Johanna", "Deathwing", "Tracer", "Li-Ming", "Malfurion"],
         "Kharazim": ["Johanna", "Auriel", "Medivh", "Uther"],
         "Li Li": ["E.T.C.", "Yrel", "Sylvanas", "Jaina", "Stukov"],
@@ -308,8 +309,8 @@ window.heroesData = {
         "Anduin": ["Battlefield of Eternity", "Cursed Hollow", "Infernal Shrines", "Tomb of the Spider Queen"],
         "Auriel": ["Battlefield of Eternity", "Braxis Holdout", "Hanamura Temple"],
         "Brightwing": ["Alterac Pass", "Cursed Hollow", "Sky Temple", "Towers of Doom", "Warhead Junction"],
-        "Deckard Cain": ["Alterac Pass", "Battlefield of Eternity", "Cursed Hollow", "Garden of Terror", "Infernal Shrines", "Volskaya Foundry"],
-        "Kharazim": ["Braxis Holdout", "Dragon Shire", "Garden of Terror", "Infernal Shrines", "Sky Temple", "Towers of Doom", "Volskaya Foundry", "Warhead Junction"],
+        "Deckard Cain": ["Johanna", "Deathwing", "Tracer", "Li-Ming", "Malfurion"],
+        "Kharazim": ["Johanna", "Auriel", "Medivh", "Uther"],
         "Li Li": ["Battlefield of Eternity", "Dragon Shire", "Hanamura Temple", "Volskaya Foundry"],
         "Lt. Morales": ["Battlefield of Eternity"],
         "Lúcio": ["Alterac Pass", "Hanamura Temple", "Cursed Hollow", "Battlefield of Eternity", "Towers of Doom"],
@@ -319,5 +320,146 @@ window.heroesData = {
         "Tyrande": ["Battlefield of Eternity", "Dragon Shire", "Infernal Shrines", "Tomb of the Spider Queen"],
         "Uther": ["Infernal Shrines"],
         "Whitemane": ["Infernal Shrines", "Towers of Doom"]
+    },
+    // Сопоставление русских и английских имен для поиска
+    heroNamesRu: {
+        "Abathur": "Абатур",
+        "Anub'arak": "Ану'барак",
+        "Arthas": "Артас",
+        "Blaze": "Блэйз",
+        "Cho": "Чо",
+        "Diablo": "Дьябло",
+        "E.T.C.": "ЕТЦ",
+        "Garrosh": "Гаррош",
+        "Johanna": "Иоанна",
+        "Mal'Ganis": "Мал'Ганис",
+        "Muradin": "Мурадин",
+        "Stitches": "Ститчз",
+        "Tyrael": "Тираэль",
+        "Artanis": "Артанис",
+        "Chen": "Чэнь",
+        "D.Va": "Дива",
+        "Dehaka": "Дехака",
+        "Imperius": "Империус",
+        "Leoric": "Леорик",
+        "Malthael": "Малтаэль",
+        "Ragnaros": "Рагнарос",
+        "Rexxar": "Рексар",
+        "Sonya": "Соня",
+        "Thrall": "Тралл",
+        "Varian": "Вариан",
+        "Yrel": "Ирел",
+        "Alexstrasza": "Алекстраза",
+        "Ana": "Ана",
+        "Anduin": "Андуин",
+        "Auriel": "Ауриэль",
+        "Brightwing": "Светик",
+        "Deckard Cain": "Декард Каин",
+        "Kharazim": "Каразим",
+        "Li Li": "Ли Ли",
+        "Lt. Morales": "Лейтенант Моралес",
+        "Lúcio": "Люсио",
+        "Malfurion": "Малфурион",
+        "Rehgar": "Рэгар",
+        "Stukov": "Стуков",
+        "Tyrande": "Тиранда",
+        "Uther": "Утер",
+        "Whitemane": "Белая Грива",
+        "Cassia": "Кассия",
+        "Chromie": "Хроми",
+        "Falstad": "Фалстад",
+        "Fenix": "Феникс",
+        "Gall": "Галл",
+        "Genji": "Гэндзи",
+        "Greymane": "Седогрив",
+        "Gul'dan": "Гул'дан",
+        "Hanzo": "Хандзо",
+        "Illidan": "Иллидан",
+        "Jaina": "Джайна",
+        "Junkrat": "Крысавчик",
+        "Kael'thas": "Кель'тас",
+        "Kel'Thuzad": "Кел'Тузад",
+        "Kerrigan": "Керриган",
+        "Li-Ming": "Ли-Мин",
+        "Lunara": "Лунара",
+        "Maiev": "Маев",
+        "Mephisto": "Мефисто",
+        "Nova": "Нова",
+        "Orphea": "Орфея",
+        "Raynor": "Рейнор",
+        "Sgt. Hammer": "Сержант Кувалда",
+        "Sylvanas": "Сильвана",
+        "Tassadar": "Тассадар",
+        "Tracer": "Трейсер",
+        "Tychus": "Тайкус",
+        "Valla": "Валла",
+        "Zul'jin": "Зул'джин",
+        "Qhira": "Кира",
+        "Valeera": "Валира",
+        "The Butcher": "Мясник",
+        "Samuro": "Самуро",
+        "Zeratul": "Зератул",
+        "Abathur": "Абатур",
+        "Azmodan": "Азмодан",
+        "Gazlowe": "Газлоу",
+        "Hogger": "Хоггер",
+        "Mei": "Мэй",
+        "Murky": "Мурки",
+        "Nazeebo": "Назибо",
+        "Probius": "Пробиус",
+        "The Lost Vikings": "Затерянные Викинги",
+        "Zagara": "Загара",
+        "Xul": "Зул"
+    },
+    // Мета-уровни героев для бонусных очков
+    metaTiers: {
+        S: [
+            // Tank
+            "Garrosh", "Johanna",
+            // Offlaner
+            "Blaze", "Dehaka", "Hogger",
+            // Ranged Assassin
+            "Mephisto", "Valla",
+            // Healer
+            "Rehgar"
+        ],
+        A: [
+            // Tank
+            "Anub'arak", "Diablo", "E.T.C.", "Muradin"
+        ],
+        B: [
+            // Tank
+            "Arthas", "Cho", "Mal'Ganis", "Varian",
+            // Offlaner
+            "Artanis", "Arthas", "D.Va", "E.T.C.", "Gazlowe", "Illidan", "Johanna", "Ragnaros", "The Lost Vikings", "Xul", "Yrel",
+            // Melee Assassin
+            "Alarak", "Imperius", "The Butcher", "Zeratul",
+            // Ranged Assassin
+            "Azmodan", "Cassia", "Fenix", "Gall", "Genji", "Greymane", "Gul'dan", "Hanzo", "Junkrat", "Orphea", "Raynor", "Tassadar", "Tychus", "Zagara",
+            // Healer
+            "Alexstrasza", "Deckard Cain", "Lúcio", "Stukov", "Tyrande", "Whitemane"
+        ],
+        C: [
+            // Tank
+            "Blaze", "Mei", "Stitches", "Tyrael",
+            // Offlaner
+            "Chen", "Deathwing", "Imperius", "Malthael", "Varian",
+            // Melee Assassin
+            "Qhira", "Valeera", "Varian",
+            // Ranged Assassin
+            "Deathwing", "Kel'Thuzad", "Li-Ming", "Lunara",
+            // Support
+            "Zarya",
+            // Healer
+            "Ana", "Kharazim", "Lt. Morales", "Uther",
+            // Offlaner (дополнительно)
+            "Leoric", "Rexxar", "Samuro", "Sonya",
+            // Melee Assassin (дополнительно)
+            "Kerrigan", "Maiev", "Thrall",
+            // Ranged Assassin (дополнительно)
+            "Chromie", "Falstad", "Jaina", "Kael'thas", "Nazeebo", "Sgt. Hammer", "Sylvanas", "Tracer", "Zul'jin",
+            // Healer (дополнительно)
+            "Anduin", "Auriel", "Brightwing", "Malfurion"
+        ]
     }
 }; 

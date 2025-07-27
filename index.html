@@ -19,6 +19,14 @@
             padding: 20px;
         }
 
+        body.light-theme {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #222;
+        }
+        body.dark-theme {
+            background: #0d1117;
+            color: #c9d1d9;
+        }
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -27,14 +35,31 @@
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
             overflow: hidden;
         }
-
+        .container.light-theme {
+            background: rgba(255,255,255,0.95);
+            color: #222;
+        }
+        .container.dark-theme {
+            background: #161b22;
+            color: #c9d1d9;
+            box-shadow: 0 8px 24px rgba(1,4,9,0.85);
+            border: 1px solid #30363d;
+        }
         .header {
             background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
             color: white;
             padding: 30px;
             text-align: center;
         }
-
+        .header.light-theme {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+        }
+        .header.dark-theme {
+            background: #161b22;
+            color: #c9d1d9;
+            border-bottom: 1px solid #30363d;
+        }
         .header h1 {
             font-size: 2.5em;
             margin-bottom: 10px;
@@ -48,6 +73,15 @@
 
         .main-content {
             padding: 40px;
+        }
+        .main-content.light-theme, .category-section.light-theme, .hero-card.light-theme {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            color: #222;
+        }
+        .main-content.dark-theme, .category-section.dark-theme, .hero-card.dark-theme {
+            background: #161b22;
+            color: #c9d1d9;
+            border: 1px solid #30363d;
         }
 
         .pick-section {
@@ -93,6 +127,15 @@
             cursor: pointer;
             transition: all 0.3s ease;
         }
+        .pick-field select.light-theme, .map-selector select.light-theme {
+            background: #fff;
+            color: #222;
+        }
+        .pick-field select.dark-theme, .map-selector select.dark-theme {
+            background: #0d1117;
+            color: #c9d1d9;
+            border-color: #30363d;
+        }
 
         .search-container {
             position: relative;
@@ -107,6 +150,15 @@
             font-size: 12px;
             background: white;
             transition: all 0.3s ease;
+        }
+        .search-input.light-theme {
+            background: #fff;
+            color: #222;
+        }
+        .search-input.dark-theme {
+            background: #0d1117;
+            color: #c9d1d9;
+            border-color: #30363d;
         }
 
         .search-input:focus {
@@ -208,6 +260,17 @@
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(39, 174, 96, 0.3);
         }
+        .analyze-btn.light-theme {
+            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+            color: #fff;
+        }
+        .analyze-btn.dark-theme {
+            background: #238636;
+            color: #fff;
+            border: 1px solid #238636;
+            box-shadow: 0 2px 8px rgba(35,134,54,0.15);
+            transition: background 0.2s, color 0.2s;
+        }
 
         .analyze-btn:hover {
             transform: translateY(-2px);
@@ -268,6 +331,13 @@
             font-weight: bold;
         }
 
+        .hero-name.light-theme, .hero-score.light-theme {
+            color: #222 !important;
+        }
+        .hero-name.dark-theme, .hero-score.dark-theme {
+            color: #c9d1d9 !important;
+        }
+
         .hero-reasons {
             margin-top: 10px;
             font-size: 14px;
@@ -299,6 +369,72 @@
             text-align: center;
         }
 
+        .autocomplete-list {
+            position: absolute;
+            top: 100%; /* Position below the input */
+            left: 0;
+            width: 100%;
+            max-height: 200px; /* Limit height for scrollability */
+            overflow-y: auto;
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            display: none; /* Hidden by default */
+        }
+
+        .autocomplete-list.show {
+            display: block;
+        }
+
+        .autocomplete-item {
+            padding: 8px 12px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .autocomplete-item:hover {
+            background-color: #f0f0f0;
+        }
+
+        .autocomplete-item.selected {
+            background-color: #27ae60 !important;
+            color: #fff !important;
+        }
+
+        .section-title.dark-theme, .category-title.dark-theme {
+            color: #58a6ff;
+        }
+        .category-title i, .section-title i {
+            color: #58a6ff !important;
+        }
+        .hero-card.dark-theme {
+            box-shadow: 0 2px 8px rgba(1,4,9,0.85);
+            border: 1px solid #30363d;
+        }
+        .hero-name {
+            color: #c9d1d9;
+        }
+        .hero-score {
+            color: #238636;
+        }
+        .error.dark-theme {
+            background: #da3633;
+            color: #fff;
+            border: 1px solid #30363d;
+        }
+        .autocomplete-item.selected {
+            background-color: #238636 !important;
+            color: #fff !important;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #21262d;
+        }
+        ::-webkit-scrollbar-track {
+            background: #161b22;
+        }
+
         @media (max-width: 768px) {
             .picks-grid {
                 grid-template-columns: repeat(2, 1fr);
@@ -319,6 +455,9 @@
         <div class="header">
             <h1><i class="fas fa-gamepad"></i> Heroes of the Storm</h1>
             <p>Анализатор пиков героев</p>
+            <button id="theme-toggle" style="position:absolute;top:20px;right:40px;padding:8px 16px;border-radius:8px;border:none;cursor:pointer;font-size:1em;background:#fff;color:#333;box-shadow:0 2px 8px rgba(0,0,0,0.08);z-index:10;">
+                <i class="fas fa-moon"></i> <span id="theme-toggle-text">Тёмная тема</span>
+            </button>
         </div>
 
         <div class="main-content">
@@ -330,52 +469,32 @@
                 <div class="picks-grid">
                     <div class="pick-field">
                         <label>Союзник 1</label>
-                        <div class="search-container">
-                            <input type="text" class="search-input" placeholder="Поиск героя..." data-target="ally1">
-                            <i class="fas fa-search search-icon"></i>
-                        </div>
-                        <select id="ally1">
-                            <option value="">Выберите героя</option>
+                        <select id="ally1" class="hero-select">
+                            <!-- options будут добавлены скриптом -->
                         </select>
                     </div>
                     <div class="pick-field">
                         <label>Союзник 2</label>
-                        <div class="search-container">
-                            <input type="text" class="search-input" placeholder="Поиск героя..." data-target="ally2">
-                            <i class="fas fa-search search-icon"></i>
-                        </div>
-                        <select id="ally2">
-                            <option value="">Выберите героя</option>
+                        <select id="ally2" class="hero-select">
+                            <!-- options будут добавлены скриптом -->
                         </select>
                     </div>
                     <div class="pick-field">
                         <label>Союзник 3</label>
-                        <div class="search-container">
-                            <input type="text" class="search-input" placeholder="Поиск героя..." data-target="ally3">
-                            <i class="fas fa-search search-icon"></i>
-                        </div>
-                        <select id="ally3">
-                            <option value="">Выберите героя</option>
+                        <select id="ally3" class="hero-select">
+                            <!-- options будут добавлены скриптом -->
                         </select>
                     </div>
                     <div class="pick-field">
                         <label>Союзник 4</label>
-                        <div class="search-container">
-                            <input type="text" class="search-input" placeholder="Поиск героя..." data-target="ally4">
-                            <i class="fas fa-search search-icon"></i>
-                        </div>
-                        <select id="ally4">
-                            <option value="">Выберите героя</option>
+                        <select id="ally4" class="hero-select">
+                            <!-- options будут добавлены скриптом -->
                         </select>
                     </div>
                     <div class="pick-field">
                         <label>Союзник 5</label>
-                        <div class="search-container">
-                            <input type="text" class="search-input" placeholder="Поиск героя..." data-target="ally5">
-                            <i class="fas fa-search search-icon"></i>
-                        </div>
-                        <select id="ally5">
-                            <option value="">Выберите героя</option>
+                        <select id="ally5" class="hero-select">
+                            <!-- options будут добавлены скриптом -->
                         </select>
                     </div>
                 </div>
@@ -389,52 +508,32 @@
                 <div class="picks-grid">
                     <div class="pick-field">
                         <label>Противник 1</label>
-                        <div class="search-container">
-                            <input type="text" class="search-input" placeholder="Поиск героя..." data-target="enemy1">
-                            <i class="fas fa-search search-icon"></i>
-                        </div>
-                        <select id="enemy1">
-                            <option value="">Выберите героя</option>
+                        <select id="enemy1" class="hero-select">
+                            <!-- options будут добавлены скриптом -->
                         </select>
                     </div>
                     <div class="pick-field">
                         <label>Противник 2</label>
-                        <div class="search-container">
-                            <input type="text" class="search-input" placeholder="Поиск героя..." data-target="enemy2">
-                            <i class="fas fa-search search-icon"></i>
-                        </div>
-                        <select id="enemy2">
-                            <option value="">Выберите героя</option>
+                        <select id="enemy2" class="hero-select">
+                            <!-- options будут добавлены скриптом -->
                         </select>
                     </div>
                     <div class="pick-field">
                         <label>Противник 3</label>
-                        <div class="search-container">
-                            <input type="text" class="search-input" placeholder="Поиск героя..." data-target="enemy3">
-                            <i class="fas fa-search search-icon"></i>
-                        </div>
-                        <select id="enemy3">
-                            <option value="">Выберите героя</option>
+                        <select id="enemy3" class="hero-select">
+                            <!-- options будут добавлены скриптом -->
                         </select>
                     </div>
                     <div class="pick-field">
                         <label>Противник 4</label>
-                        <div class="search-container">
-                            <input type="text" class="search-input" placeholder="Поиск героя..." data-target="enemy4">
-                            <i class="fas fa-search search-icon"></i>
-                        </div>
-                        <select id="enemy4">
-                            <option value="">Выберите героя</option>
+                        <select id="enemy4" class="hero-select">
+                            <!-- options будут добавлены скриптом -->
                         </select>
                     </div>
                     <div class="pick-field">
                         <label>Противник 5</label>
-                        <div class="search-container">
-                            <input type="text" class="search-input" placeholder="Поиск героя..." data-target="enemy5">
-                            <i class="fas fa-search search-icon"></i>
-                        </div>
-                        <select id="enemy5">
-                            <option value="">Выберите героя</option>
+                        <select id="enemy5" class="hero-select">
+                            <!-- options будут добавлены скриптом -->
                         </select>
                     </div>
                 </div>
@@ -447,7 +546,7 @@
                 </div>
                 <div class="map-selector">
                     <select id="mapSelect">
-                        <option value="">Выберите карту</option>
+                        <!-- options будут добавлены скриптом (только на русском) -->
                     </select>
                 </div>
             </div>
@@ -473,7 +572,13 @@
                         </div>
                         <div id="tanksList"></div>
                     </div>
-                    
+                    <div class="category-section">
+                        <div class="category-title">
+                            <i class="fas fa-dumbbell"></i>
+                            Брузеры
+                        </div>
+                        <div id="bruisersList"></div>
+                    </div>
                     <div class="category-section">
                         <div class="category-title">
                             <i class="fas fa-heart"></i>
@@ -481,15 +586,13 @@
                         </div>
                         <div id="healersList"></div>
                     </div>
-                    
                     <div class="category-section">
                         <div class="category-title">
-                            <i class="fas fa-sword"></i>
+                            <i class="fas fa-bolt"></i>
                             ДД
                         </div>
                         <div id="damageList"></div>
                     </div>
-                    
                     <div class="category-section">
                         <div class="category-title">
                             <i class="fas fa-magic"></i>
