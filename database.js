@@ -2,7 +2,7 @@
 window.heroesData = {
     // Список всех героев
     heroes: [
-        "Abathur", "Anub'arak", "Arthas", "Blaze", "Cho", "Diablo", "E.T.C.", "Garrosh", "Johanna", "Mal'Ganis",
+        "Abathur", "Anub'arak", "Arthas", "Blaze", "Cho", "Deathwing", "Diablo", "E.T.C.", "Garrosh", "Johanna", "Mal'Ganis",
         "Muradin", "Stitches", "Tyrael", "Artanis", "Chen", "D.Va", "Dehaka", "Imperius", "Leoric", "Malthael", "Ragnaros", "Rexxar", "Sonya", "Thrall", "Varian", "Yrel",
         "Alexstrasza", "Ana", "Anduin", "Auriel", "Brightwing", "Deckard Cain", "Kharazim", "Li Li", "Lt. Morales", "Lúcio", "Malfurion", "Rehgar", "Stukov", "Tyrande", "Uther", "Whitemane",
         "Cassia", "Chromie", "Falstad", "Fenix", "Gall", "Genji", "Greymane", "Gul'dan", "Hanzo", "Illidan", "Jaina", "Junkrat", "Kael'thas", "Kel'Thuzad", "Kerrigan", "Li-Ming", "Lunara", "Maiev", "Mephisto", "Nova", "Orphea", "Raynor", "Sgt. Hammer", "Sylvanas", "Tassadar", "Tracer", "Tychus", "Valla", "Zul'jin", "Qhira", "Valeera", "The Butcher", "Samuro", "Zeratul",
@@ -23,7 +23,7 @@ window.heroesData = {
             "Mal'Ganis", "Muradin", "Stitches", "Tyrael", "Mei"
         ],
         bruisers: [
-            "Artanis", "Chen", "D.Va", "Dehaka", "Hogger", "Imperius", "Leoric", "Malthael",
+            "Artanis", "Chen", "D.Va", "Deathwing", "Dehaka", "Hogger", "Imperius", "Leoric", "Malthael",
             "Ragnaros", "Rexxar", "Sonya", "Thrall", "Varian", "Yrel"
         ],
         healers: [
@@ -32,7 +32,7 @@ window.heroesData = {
             "Uther", "Whitemane"
         ],
         damage: [
-            "Alarak", "Cassia", "Chromie", "Falstad", "Fenix", "Gall", "Genji", "Greymane",
+            "Alarak", "Cassia", "Chromie", "Deathwing", "Falstad", "Fenix", "Gall", "Genji", "Greymane",
             "Gul'dan", "Hanzo", "Illidan", "Jaina", "Junkrat", "Kael'thas", "Kel'Thuzad",
             "Kerrigan", "Li-Ming", "Lunara", "Maiev", "Mephisto", "Nova", "Orphea", "Raynor",
             "Sgt. Hammer", "Sylvanas", "Tassadar", "Tracer", "Tychus", "Valla", "Zul'jin",
@@ -51,6 +51,7 @@ window.heroesData = {
         "Arthas": ["Diablo", "Tyrael", "Maiev", "Greymane", "Raynor", "Chromie", "Zarya", "Stukov", "Rehgar"],
         "Blaze": ["Arthas", "Kerrigan", "Maiev", "Malfurion"],
         "Cho": ["Alexstrasza", "Ana", "Auriel", "Brightwing", "Yrel", "Blaze"],
+        "Deathwing": ["Jaina", "Kael'thas", "Malfurion", "Rehgar", "Uther"],
         "Diablo": ["Thrall", "Tassadar", "Medivh", "Tyrande", "Leoric", "Valla"],
         "E.T.C.": ["Blaze", "Alarak", "Greymane", "Kael'thas", "Uther"],
         "Garrosh": ["Hanzo", "Jaina", "Zarya", "Malfurion"],
@@ -144,6 +145,7 @@ window.heroesData = {
         "Arthas": ["Garrosh", "Sonya", "Tracer", "Raynor", "Jaina", "Ana"],
         "Blaze": ["Leoric", "Lunara", "Malthael", "Nova", "Tracer", "Valla"],
         "Cho": ["Anub'arak", "Garrosh", "Greymane", "Imperius", "Kharazim", "Leoric", "Maiev", "Malthael", "Raynor"],
+        "Deathwing": ["Anub'arak", "Garrosh", "Leoric", "Malthael", "Raynor", "Tychus", "Valla"],
         "Diablo": ["Garrosh", "Leoric", "Malthael", "Raynor", "Tychus"],
         "E.T.C.": ["Johanna", "Deathwing", "Raynor", "Kael'thas", "Brightwing"],
         "Garrosh": ["Johanna", "Malthael", "Hanzo", "Jaina", "Anduin"],
@@ -237,6 +239,7 @@ window.heroesData = {
         "Arthas": ["Battlefield of Eternity"],
         "Blaze": ["Infernal Shrines", "Sky Temple", "Towers of Doom", "Volskaya Foundry"],
         "Cho": ["Garden of Terror", "Infernal Shrines", "Tomb of the Spider Queen", "Volskaya Foundry"],
+        "Deathwing": ["Battlefield of Eternity", "Braxis Holdout", "Infernal Shrines", "Tomb of the Spider Queen", "Volskaya Foundry"],
         "Diablo": ["Battlefield of Eternity", "Cursed Hollow", "Garden of Terror", "Infernal Shrines", "Tomb of the Spider Queen", "Towers of Doom"],
         "E.T.C.": ["Battlefield of Eternity"],
         "Garrosh": ["Battlefield of Eternity", "Braxis Holdout", "Tomb of the Spider Queen"],
