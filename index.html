@@ -30,13 +30,15 @@
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            background: rgba(255, 255, 255, 0.95);
+            background: #fff;
             border-radius: 20px;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
             overflow: hidden;
+            min-height: 950px;
+            transition: min-height 0.3s;
         }
         .container.light-theme {
-            background: rgba(255,255,255,0.95);
+            background: #fff;
             color: #222;
         }
         .container.dark-theme {
@@ -121,63 +123,74 @@
             width: 100%;
             padding: 12px;
             border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            font-size: 14px;
-            background: white;
+            border-radius: 14px;
+            font-size: 15px;
+            background: #f8f9fa;
             cursor: pointer;
             transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(52, 152, 219, 0.07);
         }
-        .pick-field select.light-theme, .map-selector select.light-theme {
-            background: #fff;
-            color: #222;
+        .pick-field select:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.13);
         }
-        .pick-field select.dark-theme, .map-selector select.dark-theme {
-            background: #0d1117;
+        .pick-field select option {
+            padding: 8px 10px;
+            font-size: 15px;
+        }
+        .pick-field select::-webkit-scrollbar {
+            width: 8px;
+            background: #e0e0e0;
+        }
+        .pick-field select::-webkit-scrollbar-thumb {
+            background: #3498db;
+            border-radius: 8px;
+        }
+        .pick-field select.dark-theme {
+            background: #161b22;
             color: #c9d1d9;
             border-color: #30363d;
         }
-
+        .pick-field select.light-theme {
+            background: #fff;
+            color: #222;
+        }
         .search-container {
             position: relative;
             margin-bottom: 8px;
         }
-
         .search-input {
             width: 100%;
             padding: 8px 30px 8px 10px;
             border: 2px solid #e0e0e0;
-            border-radius: 6px;
-            font-size: 12px;
-            background: white;
+            border-radius: 8px;
+            font-size: 13px;
+            background: #f8f9fa;
             transition: all 0.3s ease;
+            margin-bottom: 2px;
         }
-        .search-input.light-theme {
-            background: #fff;
-            color: #222;
+        .search-input:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.13);
         }
         .search-input.dark-theme {
             background: #0d1117;
             color: #c9d1d9;
             border-color: #30363d;
         }
-
-        .search-input:focus {
-            outline: none;
-            border-color: #3498db;
-            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.1);
+        .search-input.light-theme {
+            background: #fff;
+            color: #222;
         }
-
         .search-icon {
             position: absolute;
-            right: 8px;
+            right: 10px;
             top: 50%;
             transform: translateY(-50%);
             color: #7f8c8d;
-            font-size: 12px;
-        }
-
-        .pick-field select option {
-            padding: 4px;
+            font-size: 15px;
         }
 
         .pick-field select option[style*="display: none"] {
@@ -214,12 +227,6 @@
 
 
 
-        .pick-field select:focus {
-            outline: none;
-            border-color: #3498db;
-            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
-        }
-
         .pick-field label {
             display: block;
             margin-bottom: 5px;
@@ -234,9 +241,9 @@
 
         .map-selector {
             display: flex;
+            flex-direction: column;
+            align-items: flex-start;
             gap: 15px;
-            align-items: center;
-            flex-wrap: wrap;
         }
 
         .map-selector select {
@@ -435,6 +442,272 @@
             background: #161b22;
         }
 
+        .donate-btn {
+            display: inline-block;
+            margin-top: 18px;
+            margin-left: 20px;
+            padding: 12px 28px;
+            background: linear-gradient(135deg, #ffb347 0%, #ffcc33 100%);
+            color: #222;
+            font-size: 1.1em;
+            font-weight: bold;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(255, 204, 51, 0.25);
+            text-decoration: none;
+            transition: background 0.2s, color 0.2s, transform 0.2s;
+            border: none;
+        }
+        .donate-btn:hover {
+            background: linear-gradient(135deg, #ffcc33 0%, #ffb347 100%);
+            color: #fff;
+            transform: translateY(-2px) scale(1.04);
+            box-shadow: 0 8px 24px rgba(255, 204, 51, 0.35);
+        }
+        .donate-btn i {
+            margin-right: 8px;
+            color: #e67e22;
+        }
+
+        .autocomplete-wrapper {
+            position: relative;
+            width: 100%;
+        }
+        .hero-autocomplete {
+            width: 100%;
+            padding: 12px 36px 12px 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 14px;
+            font-size: 15px;
+            background: #f8f9fa;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(52, 152, 219, 0.07);
+            margin-bottom: 2px;
+        }
+        .hero-autocomplete:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.13);
+        }
+        .hero-autocomplete.dark-theme {
+            background: #161b22;
+            color: #c9d1d9;
+            border-color: #30363d;
+        }
+        .hero-autocomplete.light-theme {
+            background: #fff;
+            color: #222;
+        }
+        .autocomplete-list {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            max-height: 220px;
+            overflow-y: auto;
+            background: #fff;
+            border: 1.5px solid #e0e0e0;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(52, 152, 219, 0.13);
+            z-index: 9999;
+        }
+        .autocomplete-list.show {
+            display: block;
+        }
+        .autocomplete-item {
+            padding: 12px 16px;
+            cursor: pointer;
+            font-size: 15px;
+            transition: background 0.2s, color 0.2s;
+        }
+        .autocomplete-item:hover, .autocomplete-item.selected {
+            background: linear-gradient(90deg, #27ae60 0%, #2ecc71 100%);
+            color: #fff;
+        }
+        .autocomplete-item strong {
+            color: #3498db;
+        }
+        .autocomplete-list.dark-theme {
+            background: #161b22;
+            border-color: #30363d;
+            color: #c9d1d9;
+            box-shadow: 0 8px 32px rgba(1,4,9,0.85);
+        }
+        .autocomplete-item.dark-theme {
+            background: #161b22;
+            color: #c9d1d9;
+        }
+        .autocomplete-item.selected.dark-theme, .autocomplete-item:hover.dark-theme {
+            background: linear-gradient(90deg, #238636 0%, #27ae60 100%);
+            color: #fff;
+        }
+        .map-compact-autocomplete-wrapper {
+            position: relative;
+            width: 260px;
+            margin-top: 8px;
+        }
+        .map-compact-autocomplete-icon {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #3498db;
+            font-size: 1em;
+            z-index: 2;
+            pointer-events: none;
+        }
+        .map-compact-autocomplete-input {
+            width: 100%;
+            height: 38px;
+            padding: 8px 12px 8px 36px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 15px;
+            background: #fff;
+            color: #222;
+            transition: background 0.2s, color 0.2s, border 0.2s, box-shadow 0.2s;
+            box-shadow: 0 1px 6px rgba(52, 152, 219, 0.07);
+        }
+        .map-compact-autocomplete-input:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.13);
+        }
+        .map-compact-autocomplete-input.dark-theme {
+            background: #23272f;
+            color: #c9d1d9;
+            border-color: #30363d;
+            box-shadow: 0 1px 6px rgba(1,4,9,0.25);
+        }
+        .map-compact-autocomplete-input.dark-theme::placeholder {
+            color: #8b949e;
+            opacity: 1;
+        }
+        .map-compact-autocomplete-input.light-theme::placeholder {
+            color: #888;
+            opacity: 1;
+        }
+        .map-compact-autocomplete-list {
+            position: absolute;
+            top: 110%;
+            left: 0;
+            width: 100%;
+            max-height: 180px;
+            overflow-y: auto;
+            background: #fff;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            box-shadow: 0 4px 16px rgba(52, 152, 219, 0.13);
+            z-index: 9999;
+            margin-top: 3px;
+            display: none;
+        }
+        .map-compact-autocomplete-list.show {
+            display: block;
+        }
+        .map-compact-autocomplete-item {
+            padding: 10px 16px;
+            cursor: pointer;
+            font-size: 15px;
+            color: #222;
+            background: transparent;
+            border: none;
+            transition: background 0.18s, color 0.18s;
+        }
+        .map-compact-autocomplete-item:hover, .map-compact-autocomplete-item.selected {
+            background: linear-gradient(90deg, #27ae60 0%, #2ecc71 100%);
+            color: #fff;
+        }
+        .map-compact-autocomplete-list.dark-theme {
+            background: #23272f;
+            border-color: #30363d;
+            color: #c9d1d9;
+            box-shadow: 0 4px 16px rgba(1,4,9,0.85);
+        }
+        .map-compact-autocomplete-item.dark-theme {
+            color: #c9d1d9;
+        }
+        .map-compact-autocomplete-item.selected.dark-theme, .map-compact-autocomplete-item:hover.dark-theme {
+            background: linear-gradient(90deg, #238636 0%, #27ae60 100%);
+            color: #fff;
+        }
+        /* Кнопка смены языка */
+        .lang-btn {
+            position: absolute;
+            top: 20px;
+            right: 200px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 18px;
+            border-radius: 10px;
+            border: none;
+            background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
+            color: #222;
+            font-size: 1em;
+            font-weight: bold;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s, transform 0.2s;
+            z-index: 11;
+        }
+        .lang-btn:hover {
+            background: linear-gradient(135deg, #cfdef3 0%, #e0eafc 100%);
+            color: #3498db;
+            transform: translateY(-2px) scale(1.04);
+        }
+        .lang-btn i {
+            color: #3498db;
+            font-size: 1.2em;
+        }
+        /* Свитч для языка */
+        .lang-switch {
+            position: absolute;
+            top: 20px;
+            right: 200px;
+            display: flex;
+            align-items: center;
+            z-index: 10;
+        }
+        .lang-switch input[type="checkbox"] {
+            display: none;
+        }
+        .lang-switch-label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
+            border-radius: 20px;
+            padding: 4px 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: background 0.2s;
+            border: none;
+            font-weight: bold;
+        }
+        .lang-switch-label .flag {
+            font-size: 1.2em;
+            margin: 0 6px;
+            transition: filter 0.2s;
+        }
+        .lang-switch input[type="checkbox"]:checked + .lang-switch-label .flag.ru {
+            filter: grayscale(1) opacity(0.5);
+        }
+        .lang-switch input[type="checkbox"]:not(:checked) + .lang-switch-label .flag.gb {
+            filter: grayscale(1) opacity(0.5);
+        }
+        .lang-switch-label .switch-ball {
+            width: 22px;
+            height: 22px;
+            background: #3498db;
+            border-radius: 50%;
+            margin: 0 8px;
+            transition: transform 0.2s, background 0.2s;
+            box-shadow: 0 2px 8px rgba(52, 152, 219, 0.13);
+        }
+        .lang-switch input[type="checkbox"]:checked + .lang-switch-label .switch-ball {
+            transform: translateX(32px);
+            background: #27ae60;
+        }
+
         @media (max-width: 768px) {
             .picks-grid {
                 grid-template-columns: repeat(2, 1fr);
@@ -448,6 +721,27 @@
                 font-size: 2em;
             }
         }
+        .author-signature {
+            text-align: center;
+            margin: 10px 0 0 0;
+            color: #888;
+            font-size: 0.98em;
+            letter-spacing: 0.02em;
+            opacity: 0.85;
+            user-select: text;
+        }
+        .map-selector .autocomplete-wrapper {
+            width: 220px;
+            margin-left: 0;
+            margin-bottom: 12px;
+        }
+        .map-selector .hero-autocomplete {
+            height: 38px;
+            font-size: 15px;
+            border-radius: 10px;
+            padding: 8px 12px;
+            width: 220px;
+        }
     </style>
 </head>
 <body>
@@ -458,7 +752,14 @@
             <button id="theme-toggle" style="position:absolute;top:20px;right:40px;padding:8px 16px;border-radius:8px;border:none;cursor:pointer;font-size:1em;background:#fff;color:#333;box-shadow:0 2px 8px rgba(0,0,0,0.08);z-index:10;">
                 <i class="fas fa-moon"></i> <span id="theme-toggle-text">Тёмная тема</span>
             </button>
+            <button class="lang-btn" id="lang-btn" onclick="window.setLang(window.currentLang==='ru'?'en':'ru')">
+                <i class="fas fa-language"></i> <span id="lang-btn-text">RU</span>
+            </button>
+            <a href="https://www.donationalerts.com/r/waanori" target="_blank" class="donate-btn">
+                <i class="fas fa-donate"></i> Поддержать проект
+            </a>
         </div>
+        <div class="author-signature">Автор: waanori | Discord: waanori</div>
 
         <div class="main-content">
             <div class="pick-section">
@@ -469,33 +770,38 @@
                 <div class="picks-grid">
                     <div class="pick-field">
                         <label>Союзник 1</label>
-                        <select id="ally1" class="hero-select">
-                            <!-- options будут добавлены скриптом -->
-                        </select>
+                        <div class="autocomplete-wrapper">
+                            <input type="text" class="hero-autocomplete" id="ally1" placeholder="Выберите или найдите героя...">
+                            <div class="autocomplete-list" id="ally1-list"></div>
+                        </div>
                     </div>
                     <div class="pick-field">
                         <label>Союзник 2</label>
-                        <select id="ally2" class="hero-select">
-                            <!-- options будут добавлены скриптом -->
-                        </select>
+                        <div class="autocomplete-wrapper">
+                            <input type="text" class="hero-autocomplete" id="ally2" placeholder="Выберите или найдите героя...">
+                            <div class="autocomplete-list" id="ally2-list"></div>
+                        </div>
                     </div>
                     <div class="pick-field">
                         <label>Союзник 3</label>
-                        <select id="ally3" class="hero-select">
-                            <!-- options будут добавлены скриптом -->
-                        </select>
+                        <div class="autocomplete-wrapper">
+                            <input type="text" class="hero-autocomplete" id="ally3" placeholder="Выберите или найдите героя...">
+                            <div class="autocomplete-list" id="ally3-list"></div>
+                        </div>
                     </div>
                     <div class="pick-field">
                         <label>Союзник 4</label>
-                        <select id="ally4" class="hero-select">
-                            <!-- options будут добавлены скриптом -->
-                        </select>
+                        <div class="autocomplete-wrapper">
+                            <input type="text" class="hero-autocomplete" id="ally4" placeholder="Выберите или найдите героя...">
+                            <div class="autocomplete-list" id="ally4-list"></div>
+                        </div>
                     </div>
                     <div class="pick-field">
                         <label>Союзник 5</label>
-                        <select id="ally5" class="hero-select">
-                            <!-- options будут добавлены скриптом -->
-                        </select>
+                        <div class="autocomplete-wrapper">
+                            <input type="text" class="hero-autocomplete" id="ally5" placeholder="Выберите или найдите героя...">
+                            <div class="autocomplete-list" id="ally5-list"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -508,33 +814,38 @@
                 <div class="picks-grid">
                     <div class="pick-field">
                         <label>Противник 1</label>
-                        <select id="enemy1" class="hero-select">
-                            <!-- options будут добавлены скриптом -->
-                        </select>
+                        <div class="autocomplete-wrapper">
+                            <input type="text" class="hero-autocomplete" id="enemy1" placeholder="Выберите или найдите героя...">
+                            <div class="autocomplete-list" id="enemy1-list"></div>
+                        </div>
                     </div>
                     <div class="pick-field">
                         <label>Противник 2</label>
-                        <select id="enemy2" class="hero-select">
-                            <!-- options будут добавлены скриптом -->
-                        </select>
+                        <div class="autocomplete-wrapper">
+                            <input type="text" class="hero-autocomplete" id="enemy2" placeholder="Выберите или найдите героя...">
+                            <div class="autocomplete-list" id="enemy2-list"></div>
+                        </div>
                     </div>
                     <div class="pick-field">
                         <label>Противник 3</label>
-                        <select id="enemy3" class="hero-select">
-                            <!-- options будут добавлены скриптом -->
-                        </select>
+                        <div class="autocomplete-wrapper">
+                            <input type="text" class="hero-autocomplete" id="enemy3" placeholder="Выберите или найдите героя...">
+                            <div class="autocomplete-list" id="enemy3-list"></div>
+                        </div>
                     </div>
                     <div class="pick-field">
                         <label>Противник 4</label>
-                        <select id="enemy4" class="hero-select">
-                            <!-- options будут добавлены скриптом -->
-                        </select>
+                        <div class="autocomplete-wrapper">
+                            <input type="text" class="hero-autocomplete" id="enemy4" placeholder="Выберите или найдите героя...">
+                            <div class="autocomplete-list" id="enemy4-list"></div>
+                        </div>
                     </div>
                     <div class="pick-field">
                         <label>Противник 5</label>
-                        <select id="enemy5" class="hero-select">
-                            <!-- options будут добавлены скриптом -->
-                        </select>
+                        <div class="autocomplete-wrapper">
+                            <input type="text" class="hero-autocomplete" id="enemy5" placeholder="Выберите или найдите героя...">
+                            <div class="autocomplete-list" id="enemy5-list"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -544,10 +855,9 @@
                     <i class="fas fa-map"></i>
                     Карта
                 </div>
-                <div class="map-selector">
-                    <select id="mapSelect">
-                        <!-- options будут добавлены скриптом (только на русском) -->
-                    </select>
+                <div class="autocomplete-wrapper">
+                    <input type="text" class="hero-autocomplete" id="mapSelect" placeholder="Выберите или найдите карту...">
+                    <div class="autocomplete-list" id="mapSelect-list"></div>
                 </div>
             </div>
 
