@@ -5,7 +5,6 @@
 ## Запуск
 
 Дважды кликни `start-server.bat`
-или
-Открой http://localhost:5500/html/index.html
+или по ссылке https://jotnar1.github.io/
 
 Автор: Elori | Discord: waanori
