@@ -112,7 +112,14 @@ export class MapsPage extends BasePage {
                 <h2 class="map-detail-name">${getMapDisplayName(mapName, this.lang)}</h2>
                 <p class="map-detail-en">${mapName}</p>
             </div>
+            <div class="map-showcase-zoom-hint">🔍 ${this.translate('clickToZoom')}</div>
         `;
+        
+        // Add click handler for lightbox
+        showcase.addEventListener('click', () => {
+            this.openLightbox(image, mapName);
+        });
+        
         detail.appendChild(showcase);
 
         const heroesSection = createElement('section', 'map-heroes-section');
@@ -145,6 +152,56 @@ export class MapsPage extends BasePage {
         analyzeLink.href = 'index.html#map-section';
         analyzeLink.textContent = this.translate('analyzeOnMap');
         detail.appendChild(analyzeLink);
+    }
+
+    openLightbox(imageSrc, mapName) {
+        // Remove existing lightbox if any
+        const existingLightbox = document.querySelector('.map-lightbox');
+        if (existingLightbox) {
+            existingLightbox.remove();
+        }
+
+        // Create lightbox modal
+        const lightbox = document.createElement('div');
+        lightbox.className = 'map-lightbox';
+        lightbox.innerHTML = `
+            <button class="map-lightbox-close" aria-label="Close">×</button>
+            <img class="map-lightbox-img" src="${imageSrc}" alt="${getMapDisplayName(mapName, this.lang)}">
+            <div class="map-lightbox-caption">
+                <div class="map-lightbox-title">${getMapDisplayName(mapName, this.lang)}</div>
+                <div class="map-lightbox-subtitle">${mapName}</div>
+            </div>
+        `;
+
+        // Add close functionality
+        const closeBtn = lightbox.querySelector('.map-lightbox-close');
+        const closeLightbox = () => {
+            lightbox.classList.remove('active');
+            setTimeout(() => lightbox.remove(), 300);
+        };
+
+        closeBtn.addEventListener('click', closeLightbox);
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                closeLightbox();
+            }
+        });
+
+        // Close on Escape key
+        const handleEscape = (e) => {
+            if (e.key === 'Escape') {
+                closeLightbox();
+                document.removeEventListener('keydown', handleEscape);
+            }
+        };
+        document.addEventListener('keydown', handleEscape);
+
+        document.body.appendChild(lightbox);
+        
+        // Trigger animation
+        requestAnimationFrame(() => {
+            lightbox.classList.add('active');
+        });
     }
 
     getBannerOptions() {

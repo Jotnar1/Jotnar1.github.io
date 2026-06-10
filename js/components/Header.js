@@ -1,6 +1,6 @@
 import { SITE_INFO } from '../data/constants.js';
 import { createElement, clearNode } from '../utils/helpers.js';
-import { t, getNavLinks } from '../utils/i18n.js';
+import { t, getNavLinks, getThemeLabel } from '../utils/i18n.js';
 
 export class Header {
     constructor(containerId = 'header-container', lang = 'ru') {
@@ -29,7 +29,7 @@ export class Header {
         const themeLabel = document.createElement('label');
         themeLabel.className = 'theme-btn hots-btn';
         themeLabel.htmlFor = 'themeSwitch';
-        themeLabel.textContent = t('theme', this.lang);
+        themeLabel.textContent = getThemeLabel(this.lang);
         const langBtn = createElement('button', 'lang-btn hots-btn', this.lang === 'en' ? 'EN' : 'RU');
         langBtn.id = 'lang-btn';
         langBtn.type = 'button';

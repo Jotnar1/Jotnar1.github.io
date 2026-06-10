@@ -6,6 +6,8 @@ import { createElement } from '../utils/helpers.js';
 import { getHeroDisplayName } from '../utils/helpers.js';
 import { setupHeroAutocomplete, setupMapAutocomplete } from '../utils/autocomplete.js';
 import { calculateRecommendations, formatReason, getSelectedHeroes, getSelectedMap } from '../utils/pickAnalyzer.js';
+import { pickBestBuild } from '../utils/buildAdvisor.js';
+import { renderBuildPanel } from '../utils/buildDisplay.js';
 import { StatsBar } from '../components/StatsBar.js';
 import { getHeroIcon, getHeroPortrait } from '../utils/heroImages.js';
 
@@ -14,6 +16,7 @@ export class AnalyzerPage extends BasePage {
         super();
         this.categories = ['tanks', 'bruisers', 'healers', 'damage', 'specialists'];
         this.savedForm = null;
+        this.lastDraft = { allies: [], enemies: [], map: '' };
     }
 
     saveFormState() {
@@ -182,6 +185,7 @@ export class AnalyzerPage extends BasePage {
         }
 
         this.showLoading();
+        this.lastDraft = { allies, enemies, map };
         setTimeout(() => {
             const recommendations = calculateRecommendations(allies, enemies, map, heroesData, this.lang);
             this.showResults(recommendations);
@@ -239,21 +243,69 @@ export class AnalyzerPage extends BasePage {
                     .join('');
                 const icon = getHeroIcon(hero);
                 const portrait = getHeroPortrait(hero);
+                const cardId = `result-${cat}-${index}`;
                 return `
-                    <div class="result-card ${rankClass}">
+                    <div class="result-card ${rankClass}" id="${cardId}" data-hero="${hero}">
                         <div class="result-card-top">
                             <img class="result-icon" src="${icon}" alt="${hero}" loading="lazy">
-                            <div>
+                            <div class="result-card-info">
                                 <div class="result-name">${display}</div>
                                 <div class="result-score">${this.translate('score')}: ${data.score}</div>
                             </div>
+                            <button type="button" class="build-btn hots-btn-sm" data-hero="${hero}" aria-expanded="false">${this.translate('buildBtn')}</button>
                         </div>
                         ${portrait ? `<div class="result-portrait-bg" style="background-image:url('${portrait}')"></div>` : ''}
                         ${reasons ? `<ul class="result-reasons">${reasons}</ul>` : ''}
+                        <div class="result-build-slot" hidden></div>
                     </div>
                 `;
             }).join('');
+
+            list.querySelectorAll('.build-btn').forEach((btn) => {
+                btn.addEventListener('click', () => this.toggleBuildPanel(btn));
+            });
         });
+    }
+
+    async toggleBuildPanel(btn) {
+        const card = btn.closest('.result-card');
+        const hero = btn.dataset.hero;
+        const slot = card?.querySelector('.result-build-slot');
+        if (!slot) {
+            return;
+        }
+
+        const isOpen = !slot.hidden;
+        document.querySelectorAll('.result-build-slot').forEach((s) => {
+            s.hidden = true;
+            s.innerHTML = '';
+        });
+        document.querySelectorAll('.build-btn').forEach((b) => {
+            b.classList.remove('active');
+            b.setAttribute('aria-expanded', 'false');
+        });
+
+        if (isOpen) {
+            return;
+        }
+
+        slot.hidden = false;
+        slot.innerHTML = `<div class="loading-text">${this.translate('buildLoading')}</div>`;
+        btn.classList.add('active');
+        btn.setAttribute('aria-expanded', 'true');
+
+        const buildResult = pickBestBuild(
+            hero,
+            this.lastDraft.enemies,
+            this.lastDraft.allies,
+            this.lastDraft.map,
+            this.builds,
+            heroesData,
+            this.lang
+        );
+
+        slot.innerHTML = '';
+        slot.appendChild(await renderBuildPanel(buildResult, hero, this.lang));
     }
 
     getBannerOptions() {

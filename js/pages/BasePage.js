@@ -4,6 +4,7 @@ import { HeroBanner } from '../components/HeroBanner.js';
 import { clearNode } from '../utils/helpers.js';
 import { initEffects, initScrollReveal } from '../utils/effects.js';
 import { loadHeroAssets } from '../utils/heroAssetsLoader.js';
+import { loadHeroBuilds } from '../utils/heroBuildsLoader.js';
 import { getLang, setLang, t, updatePageTitle } from '../utils/i18n.js';
 
 export class BasePage {
@@ -22,6 +23,7 @@ export class BasePage {
         updatePageTitle(this.currentPage, this.lang);
 
         await loadHeroAssets();
+        this.builds = await loadHeroBuilds();
 
         this.header.lang = this.lang;
         this.header.init();

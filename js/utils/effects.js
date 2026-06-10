@@ -1,8 +1,20 @@
 // canvas частицы https://www.youtube.com/watch?v=vAJEHf92tV0
+let stormCleanup = null;
+
+function isLightTheme() {
+    return document.documentElement.dataset.theme === 'light'
+        || document.getElementById('themeSwitch')?.checked;
+}
+
 export function initStormCanvas() {
     const canvas = document.getElementById('storm-canvas');
     if (!canvas) {
         return;
+    }
+
+    if (stormCleanup) {
+        stormCleanup();
+        stormCleanup = null;
     }
 
     const ctx = canvas.getContext('2d');
@@ -15,15 +27,25 @@ export function initStormCanvas() {
     };
 
     const createParticles = (count) => {
+        const light = isLightTheme();
         particles = Array.from({ length: count }, () => ({
             x: Math.random() * canvas.width,
             y: Math.random() * canvas.height,
-            r: Math.random() * 2 + 0.5,
+            r: Math.random() * (light ? 1.8 : 2) + 0.5,
             vx: (Math.random() - 0.5) * 0.3,
             vy: Math.random() * 0.5 + 0.1,
-            alpha: Math.random() * 0.5 + 0.2,
-            hue: Math.random() > 0.5 ? 45 : 195
+            alpha: Math.random() * (light ? 0.35 : 0.5) + (light ? 0.15 : 0.2),
+            hue: light
+                ? (Math.random() > 0.55 ? 42 : 205)
+                : (Math.random() > 0.5 ? 45 : 195)
         }));
+    };
+
+    const applyThemeToCanvas = () => {
+        const light = isLightTheme();
+        canvas.style.opacity = light ? '0.22' : '0.55';
+        canvas.classList.toggle('storm-canvas-light', light);
+        createParticles(Math.min(80, Math.floor(window.innerWidth / 20)));
     };
 
     const draw = () => {
@@ -31,7 +53,7 @@ export function initStormCanvas() {
         particles.forEach((p) => {
             ctx.beginPath();
             ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-            ctx.fillStyle = `hsla(${p.hue}, 80%, 70%, ${p.alpha})`;
+            ctx.fillStyle = `hsla(${p.hue}, ${isLightTheme() ? 65 : 80}%, ${isLightTheme() ? 55 : 70}%, ${p.alpha})`;
             ctx.fill();
 
             p.x += p.vx;
@@ -49,18 +71,25 @@ export function initStormCanvas() {
     };
 
     resize();
-    createParticles(Math.min(80, Math.floor(window.innerWidth / 20)));
+    applyThemeToCanvas();
     draw();
 
-    window.addEventListener('resize', () => {
+    const onResize = () => {
         resize();
         createParticles(Math.min(80, Math.floor(window.innerWidth / 20)));
-    });
+    };
 
-    return () => {
+    const onThemeChange = () => applyThemeToCanvas();
+
+    window.addEventListener('resize', onResize);
+    window.addEventListener('hots-theme-change', onThemeChange);
+
+    stormCleanup = () => {
         if (rafId) {
             cancelAnimationFrame(rafId);
         }
+        window.removeEventListener('resize', onResize);
+        window.removeEventListener('hots-theme-change', onThemeChange);
     };
 }
 

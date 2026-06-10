@@ -2,10 +2,18 @@ import { AnalyzerPage } from './pages/AnalyzerPage.js';
 import { HeroesPage } from './pages/HeroesPage.js';
 import { TierlistPage } from './pages/TierlistPage.js';
 import { MapsPage } from './pages/MapsPage.js';
+import { BuildsPage } from './pages/BuildsPage.js';
 import { Header } from './components/Header.js';
 import { Footer } from './components/Footer.js';
 import { THEME_KEY } from './data/constants.js';
-import { getLang, setLang } from './utils/i18n.js';
+import { getLang, setLang, getThemeLabel } from './utils/i18n.js';
+
+function updateThemeLabel() {
+    const label = document.querySelector('label[for="themeSwitch"]');
+    if (label) {
+        label.textContent = getThemeLabel(getLang());
+    }
+}
 
 function initTheme() {
     const themeSwitch = document.getElementById('themeSwitch');
@@ -18,10 +26,16 @@ function initTheme() {
         themeSwitch.checked = true;
     }
 
-    themeSwitch.addEventListener('change', () => {
-        const nextTheme = themeSwitch.checked ? 'light' : 'dark';
-        localStorage.setItem(THEME_KEY, nextTheme);
-    });
+    const applyTheme = () => {
+        const mode = themeSwitch.checked ? 'light' : 'dark';
+        localStorage.setItem(THEME_KEY, mode);
+        document.documentElement.dataset.theme = mode;
+        updateThemeLabel();
+        window.dispatchEvent(new CustomEvent('hots-theme-change', { detail: { mode } }));
+    };
+
+    themeSwitch.addEventListener('change', applyTheme);
+    applyTheme();
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -46,6 +60,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         case 'maps.html':
             await new MapsPage().init();
+            break;
+
+        case 'builds.html':
+            await new BuildsPage().init();
             break;
 
         default:

@@ -12,12 +12,11 @@ export class StatsBar {
         const bar = createElement('div', 'stats-bar reveal');
         const heroCount = getUniqueHeroes(heroesData).length;
         const mapCount = heroesData.maps.length;
-        const synergyCount = Object.keys(heroesData.synergies).length;
 
         const items = [
             { value: heroCount, label: t('statHeroes', this.lang), href: 'heroes.html' },
             { value: mapCount, label: t('statMaps', this.lang), href: 'maps.html' },
-            { value: synergyCount, label: t('statSynergies', this.lang), href: 'heroes.html' },
+            { value: heroCount, label: t('statBuilds', this.lang), href: 'builds.html' },
             { value: 'S–C', label: t('statTiers', this.lang), href: 'tierlist.html' }
         ];
 
